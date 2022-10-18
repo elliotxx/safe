@@ -38,6 +38,10 @@ func doSomething() {
 	panic("BOOM!")
 }
 
+func customRecoverHandler(r interface{}) {
+	log.Printf("Recovered from %v", r)
+}
+
 func main() {
 	// Go starts a recoverable goroutine.
 	safe.Go(
@@ -52,13 +56,13 @@ func main() {
 
 	// DefaultHandleCrash simply catches a crash with the default recover handler.
 	go func() {
-		defer DefaultHandleCrash()
+		defer safe.DefaultHandleCrash()
 		doSomething()
 	}()
 
 	// HandleCrash catches a crash with the custom recover handlers.
 	go func() {
-		defer HandleCrash(customRecoverHandler)
+		defer safe.HandleCrash(customRecoverHandler)
 		doSomething()
 	}()
 }
