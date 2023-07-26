@@ -15,6 +15,7 @@ type Pool struct {
 // NewPool creates a Pool.
 func NewPool(parentCtx context.Context) *Pool {
 	ctx, cancel := context.WithCancel(parentCtx)
+
 	return &Pool{
 		ctx:    ctx,
 		cancel: cancel,

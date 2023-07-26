@@ -19,9 +19,10 @@ var DefaultRecoverHandler RecoverHandler = func(r interface{}) {
 // Go starts a recoverable goroutine.
 //
 // Example:
-//   safe.Go(
-//     func() { ... },
-//   )
+//
+//	safe.Go(
+//	  func() { ... },
+//	)
 func Go(do DoFunc) {
 	GoR(do, DefaultRecoverHandler)
 }
@@ -29,10 +30,11 @@ func Go(do DoFunc) {
 // GoR starts a recoverable goroutine using given recover handler.
 //
 // Example:
-//   safe.GoR(
-//     func() { ... },
-//     customRecoverHandler
-//   )
+//
+//	safe.GoR(
+//	  func() { ... },
+//	  customRecoverHandler
+//	)
 func GoR(do DoFunc, handlers ...RecoverHandler) {
 	go func() {
 		defer HandleCrash(handlers...)
@@ -43,10 +45,11 @@ func GoR(do DoFunc, handlers ...RecoverHandler) {
 // DefaultHandleCrash simply catches a crash with the default recover handler.
 //
 // Example:
-//   go func() {
-//     defer DefaultHandleCrash()
-//     ...
-//   }()
+//
+//	go func() {
+//	  defer DefaultHandleCrash()
+//	  ...
+//	}()
 func DefaultHandleCrash() {
 	HandleCrash(DefaultRecoverHandler)
 }
@@ -54,10 +57,11 @@ func DefaultHandleCrash() {
 // HandleCrash catches a crash with the custom recover handlers.
 //
 // Example:
-//   go func() {
-//     defer HandleCrash(customRecoverHandler)
-//     ...
-//   }()
+//
+//	go func() {
+//	  defer HandleCrash(customRecoverHandler)
+//	  ...
+//	}()
 func HandleCrash(handlers ...RecoverHandler) {
 	if r := recover(); r != nil {
 		for _, handler := range handlers {
